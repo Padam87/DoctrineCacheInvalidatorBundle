@@ -1,0 +1,28 @@
+{
+    "name": "padam87/doctrine-cache-invalidator-bundle",
+    "type": "symfony-bundle",
+    "description": "A simplistic way to invalidate Doctrine result cache.",
+    "license": "MIT",
+    "keywords": [
+        "symfony",
+        "doctrine",
+        "cache",
+        "invalidate"
+    ],
+    "homepage": "https://github.com/Padam87/DoctrineCacheInvalidatorBundle",
+    "authors": [
+        {
+            "name": "Adam Prager",
+            "email": "prager.adam87@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {"Padam87\\DoctrineCacheInvalidatorBundle": ""}
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "symfony/framework-bundle": "~2.3",
+        "doctrine/orm": "~2.2,>=2.2.3"
+    },
+    "target-dir": "Padam87/DoctrineCacheInvalidatorBundle"
+}

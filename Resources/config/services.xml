@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="padam87_doctrine_cache_invalidator.listener.class">Padam87\DoctrineCacheInvalidatorBundle\Listener\CacheInvalidatorListener</parameter>
+        <parameter key="padam87_doctrine_cache_invalidator.rule_reader.class">Padam87\DoctrineCacheInvalidatorBundle\Rule\RuleReader</parameter>
+        <parameter key="padam87_doctrine_cache_invalidator.cache_warmer.class">Padam87\DoctrineCacheInvalidatorBundle\CacheWarmer\InvalidationRuleCacheWarmer</parameter>
+    </parameters>
+
+    <services>
+        <service id="padam87_doctrine_cache_invalidator.rule_reader" class="%padam87_doctrine_cache_invalidator.rule_reader.class%">
+            <argument type="service" id="annotation_reader" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%kernel.cache_dir%</argument>
+        </service>
+        <service id="padam87_doctrine_cache_invalidator.listener" class="%padam87_doctrine_cache_invalidator.listener.class%">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+            <tag name="doctrine.event_listener" event="onFlush" />
+        </service>
+        <service id="padam87_doctrine_cache_invalidator.cache_warmer" class="%padam87_doctrine_cache_invalidator.cache_warmer.class%">
+            <argument type="service" id="padam87_doctrine_cache_invalidator.rule_reader" />
+            <tag name="kernel.cache_warmer" />
+        </service>
+    </services>
+</container>

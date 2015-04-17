@@ -5,6 +5,7 @@ namespace Padam87\DoctrineCacheInvalidatorBundle\Listener;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class CacheInvalidatorListener extends ContainerAware
 {
@@ -62,10 +63,40 @@ class CacheInvalidatorListener extends ContainerAware
 
         foreach ($rules[get_class($entity)] as $rule) {
             if (in_array($event, $rule['events'])) {
-                if ($cache->contains($rule['id'])) {
-                    $cache->delete($rule['id']);
+                $id = $this->getCacheId($rule, $entity);
+
+                if ($cache->contains($id)) {
+                    $cache->delete($id);
                 }
             }
         }
+    }
+
+    /**
+     * @param array  $rule
+     * @param object $entity
+     *
+     * @return string
+     */
+    protected function getCacheId(array $rule, $entity)
+    {
+        $id = $rule['id'];
+
+        $accessor = PropertyAccess::createPropertyAccessor();
+
+        return preg_replace_callback(
+            '/\$\{([^}]*)\}/',
+            function($match) use ($accessor, $entity) {
+                $value = $entity;
+
+                foreach (explode('.', $match[1]) as $property)
+                {
+                    $value = $accessor->getValue($value, $property);
+                }
+
+                return $value;
+            },
+            $id
+        );
     }
 }

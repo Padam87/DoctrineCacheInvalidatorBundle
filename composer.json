@@ -22,6 +22,7 @@
     "require": {
         "php": ">=5.4.0",
         "symfony/framework-bundle": "~2.3",
+        "symfony/property-access": "~2.3",
         "doctrine/orm": "~2.2,>=2.2.3"
     },
     "target-dir": "Padam87/DoctrineCacheInvalidatorBundle"

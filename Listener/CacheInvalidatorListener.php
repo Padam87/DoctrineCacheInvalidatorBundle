@@ -4,6 +4,7 @@ namespace Padam87\DoctrineCacheInvalidatorBundle\Listener;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\Event\OnFlushEventArgs;
+use Padam87\DoctrineCacheInvalidatorBundle\Rule\RuleReader;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
@@ -16,11 +17,15 @@ class CacheInvalidatorListener extends ContainerAware
      */
     private $rules = [];
 
+    /**
+     * @var bool
+     */
     private $rulesLoaded = false;
 
     public function getRules()
     {
         if (!$this->rulesLoaded) {
+            /** @var RuleReader $ruleReader */
             $ruleReader = $this->container->get('padam87_doctrine_cache_invalidator.rule_reader');
             $ruleReader->cacheRules();
 

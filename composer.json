@@ -25,5 +25,9 @@
         "symfony/property-access": "~2.3",
         "doctrine/orm": "~2.2,>=2.2.3"
     },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4",
+        "mockery/mockery": "~0.9"
+    },
     "target-dir": "Padam87/DoctrineCacheInvalidatorBundle"
 }

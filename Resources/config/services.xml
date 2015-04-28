@@ -13,7 +13,7 @@
     <services>
         <service id="padam87_doctrine_cache_invalidator.rule_reader" class="%padam87_doctrine_cache_invalidator.rule_reader.class%">
             <argument type="service" id="annotation_reader" />
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="doctrine" />
             <argument>%kernel.cache_dir%</argument>
         </service>
         <service id="padam87_doctrine_cache_invalidator.listener" class="%padam87_doctrine_cache_invalidator.listener.class%">

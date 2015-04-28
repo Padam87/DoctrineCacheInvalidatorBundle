@@ -3,6 +3,7 @@
 namespace Padam87\DoctrineCacheInvalidatorBundle\Rule;
 
 use Doctrine\Common\Annotations\Reader;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\ConfigCache;
@@ -16,9 +17,9 @@ class RuleReader
     protected $annotationReader;
 
     /**
-     * @var \Doctrine\ORM\EntityManagerInterface
+     * @var ManagerRegistry
      */
-    protected $em;
+    private $doctrine;
 
     /**
      * @var string
@@ -26,15 +27,15 @@ class RuleReader
     protected $cacheDir;
 
     /**
-     * @param Reader                 $annotationReader
-     * @param EntityManagerInterface $em
-     * @param                        $cacheDir
+     * @param Reader          $annotationReader
+     * @param ManagerRegistry $doctrine
+     * @param                 $cacheDir
      */
-    public function __construct(Reader $annotationReader, EntityManagerInterface $em, $cacheDir)
+    public function __construct(Reader $annotationReader, ManagerRegistry $doctrine, $cacheDir)
     {
         $this->annotationReader = $annotationReader;
-        $this->em               = $em;
-        $this->cacheDir         = $cacheDir;
+        $this->doctrine = $doctrine;
+        $this->cacheDir = $cacheDir;
     }
 
     /**
@@ -97,6 +98,8 @@ class RuleReader
 
     protected function getMetadata()
     {
-        return $this->em->getMetadataFactory()->getAllMetadata();
+        $em = $this->doctrine->getManager();
+
+        return $em->getMetadataFactory()->getAllMetadata();
     }
 }

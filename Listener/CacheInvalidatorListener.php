@@ -5,11 +5,14 @@ namespace Padam87\DoctrineCacheInvalidatorBundle\Listener;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Padam87\DoctrineCacheInvalidatorBundle\Rule\RuleReader;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-class CacheInvalidatorListener extends ContainerAware
+class CacheInvalidatorListener implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+
     /**
      * Invalidation rules
      *

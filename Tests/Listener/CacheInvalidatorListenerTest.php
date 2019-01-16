@@ -4,14 +4,18 @@ namespace Padam87\DoctrineCacheInvalidatorBundle\Tests\Listener;
 
 use \Mockery as m;
 use Padam87\DoctrineCacheInvalidatorBundle\Listener\CacheInvalidatorListener;
+use PHPUnit\Framework\TestCase;
 
-class CacheInvalidatorListenerTest extends \PHPUnit_Framework_TestCase
+class CacheInvalidatorListenerTest extends TestCase
 {
     public function tearDown()
     {
         m::close();
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testOnFlush()
     {
         $entity = new \stdClass();

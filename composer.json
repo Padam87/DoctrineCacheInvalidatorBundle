@@ -17,17 +17,16 @@
         }
     ],
     "autoload": {
-        "psr-0": {"Padam87\\DoctrineCacheInvalidatorBundle": ""}
+        "psr-4": {"Padam87\\DoctrineCacheInvalidatorBundle\\": ""}
     },
     "require": {
-        "php": ">=5.4.0",
-        "symfony/framework-bundle": "~2.4|~3.0",
-        "symfony/property-access": "~2.3|~3.0",
+        "php": ">=7.1.0",
+        "symfony/framework-bundle": "~4.0",
+        "symfony/property-access": "~4.0",
         "doctrine/orm": "^2.2.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.4",
+        "phpunit/phpunit": "^6.0",
         "mockery/mockery": "~0.9"
-    },
-    "target-dir": "Padam87/DoctrineCacheInvalidatorBundle"
+    }
 }
